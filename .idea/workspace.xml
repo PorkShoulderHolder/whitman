@@ -31,7 +31,7 @@
     <file path="/webViewer.html" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373260696848" ignored="false" />
     <file path="$PROJECT_DIR$/../popserver/data.json" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373258421342" ignored="false" />
     <file path="/visualize.html" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373273553916" ignored="false" />
-    <file path="/README.md" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373331173503" ignored="false" />
+    <file path="/README.md" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373331344891" ignored="false" />
     <file path="/Dummy.txt" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373330466175" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +55,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="904" selection-end="904" vertical-scroll-proportion="0.6569343">
+            <state line="17" column="4" selection-start="636" selection-end="636" vertical-scroll-proportion="0.37226278">
               <folding />
             </state>
           </provider>
@@ -502,7 +502,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="904" selection-end="904" vertical-scroll-proportion="0.6569343">
+        <state line="17" column="4" selection-start="636" selection-end="636" vertical-scroll-proportion="0.37226278">
           <folding />
         </state>
       </provider>
