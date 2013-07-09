@@ -2,40 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f11349e-9628-4809-9cb3-9fd28edeaf2a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AdWords API Location Criteria 2012-12-06.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NE_Tagger.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binaryCitySearch.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cities.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/citySorter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cleanedWhitmanData.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/country.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/d3map.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dataAnalyser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dataWithCities.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/globalWhitmanProcessor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/jsonmaker.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nameChanger.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pickler.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/postProcessor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/postageTrafficByYear" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/postageTrafficByYear.bson" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/postageTrafficByYear.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sortedCities.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/states.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/taggedData.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/textPickler.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/transitTracker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/visualize.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitman.bson" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitman.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitmanCrawler.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitmanData.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitmanbson.bson" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/whitmanjson.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wikiCreeper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wikiCreeper.py.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/xml2json.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/youtubeTest.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="wikiCreeper.iws" />
@@ -65,7 +31,7 @@
     <file path="/webViewer.html" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373260696848" ignored="false" />
     <file path="$PROJECT_DIR$/../popserver/data.json" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373258421342" ignored="false" />
     <file path="/visualize.html" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373273553916" ignored="false" />
-    <file path="/README.md" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373331040729" ignored="false" />
+    <file path="/README.md" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373331173503" ignored="false" />
     <file path="/Dummy.txt" changelist="6f11349e-9628-4809-9cb3-9fd28edeaf2a" time="1373330466175" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +55,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="415" selection-end="415" vertical-scroll-proportion="0.2189781">
+            <state line="30" column="0" selection-start="904" selection-end="904" vertical-scroll-proportion="0.6569343">
               <folding />
             </state>
           </provider>
@@ -536,7 +502,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="415" selection-end="415" vertical-scroll-proportion="0.2189781">
+        <state line="30" column="0" selection-start="904" selection-end="904" vertical-scroll-proportion="0.6569343">
           <folding />
         </state>
       </provider>

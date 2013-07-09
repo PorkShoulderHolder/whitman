@@ -4,7 +4,7 @@ whitman
 A Collection of the tools I made to scrape, analyse, and catalogue all of Walt Whitman's correspondence from 1860 to 1875.
 more importantly text, pickled, JSON, and BSON representations of said data.
 
-@@NE_Tagger
+##NE_Tagger
 
 The NE_Tagger object takes a section of text as well as an optional text heading parameter and then performs the
 relevant named entity recognition and populates its people, locations,
@@ -21,7 +21,7 @@ relevant named entity recognition and populates its people, locations,
 
 etc...
 
-@@jsonmaker
+##jsonmaker
 
 The jsonmaker object provides a light wrapper for the json module to convert python objects to json/bson files
 
