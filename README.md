@@ -1,7 +1,7 @@
 whitman
 =======
 
-A Collection of the tools I made to scrape, analyse, and catalogue all of Walt Whitman's correspondence from 1860 to 1875.
+A Collection of the tools I made to scrape, analyse, and catalogue all of Walt Whitman's correspondence from 1860 to 1876.
 And more importantly, the information I gathered in the form of text, JSON, pickle, and BSON.
 
 Purpose
@@ -314,7 +314,7 @@ can be found in Table 5.1 of http://nltk.googlecode.com/svn/trunk/doc/book/ch05.
 
        ],
        "normalizedTime":"0.00271997824017",     /* this is some number between 0 and 1 representing where this letter falls
-                                                   on a timeline from 1860 to 1875 */
+                                                   on a timeline from 1860 to 1876 */
 
        "recipient":"James Russell Lowell",      /* Named entity recognition performed on the heading gives us
                                                    a sender and a recipient */
