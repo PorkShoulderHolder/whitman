@@ -398,10 +398,151 @@ Below is an example entry that represents one letter (the full json is an array 
     }
 
 3. The postageTrafficByYear files contain outgoing and incoming postage and word counts by year with respect to Whitman.
-It also contains data that is in whitmanjson.json, but has been reformatted into a cumulative/array format. For fields
-that have about 15 entries, that is per-year data with the first element being for 1860.
+It also contains data that is in whitmanjson.json, but has been reformatted into a cumulative/array format.
 
+## explanation of postageTrafficByYear.json
 
+    {
+        "outgoingLetterTraffic": [  /* counts of outbound mail per year: as you can see the data is sort of sparse
+                                       sometimes, but this could be good for some histogram or something */
+            14,
+            5,
+            25,
+            133,
+            70,
+            40,
+            48,
+            53,
+            71,
+            17,
+            17,
+            22,
+            25,
+            35,
+            42,
+            30,
+            54
+        ],
+        "incomingLetterTraffic": [  /* counts of incoming mail per year */
+            36,
+            5,
+            32,
+            160,
+            110,
+            55,
+            37,
+            35,
+            24,
+            5,
+            14,
+            12,
+            9,
+            12,
+            0,
+            0,
+            2
+        ],
+        "locations": [      /* array of arrays of locations per letter */
+        [],
+        [
+            [
+                22.5009081,
+                114.1558258
+            ],
+            [
+                37.4315734,
+                -78.6568942
+            ]
+        ],
+        [],
+        [
+            [
+                40.65,
+                -73.95
+            ]
+        ],
+
+            .
+            .
+            .
+
+        [
+             [
+                 38.8    951118,
+                -77.    0363658
+            ]
+         ]
+     ], 
+     "outgoingWordTraffic": [ /* similar to outgoingLetterTraffic except this counts outgoing words per year instead of letters:
+                                could be useful in determining average letter length over time */
+        4075,
+        1263,
+        18096,
+        93964,
+        34537,
+        16136,
+        12085,
+        16626,
+        21527,
+        4979,
+        3180,
+        3365,
+        8193,
+        7208,
+        7934,
+        2994,
+        6335
+    ], 
+     "normalizedDates": [  /* full array of the position of each letter between 1860 and 1876 normalized between 0 and 1.
+                             could be used in conjunction with the array of locations per letter above */
+        "0.0",
+        "0.000951992384061",
+        "0.00217598259214",
+        "0.00271997824017",
+        "0.00557595539236",
+        .
+        .
+        .
+
+        "0.832857337141",
+        "0.835169318645",
+        "0.836393308854",
+        "0.839113287094",
+        "0.839385284918",
+        "0.841833265334",
+        "0.843057255542",
+        "1.0",
+        "1.0",
+        "1.0",
+        "1.0",
+        "1.0",
+        "1.0",
+        "1.0",
+        "n/a",
+        "n/a",
+        "n/a"
+    ], 
+     "incomingWordTraffic": [    /* similar to imcomingLetterTraffic except this counts incoming words per year instead of letters:
+                                could be useful in determining average letter length over time */
+        11309,
+        2080,
+        20955,
+        90730,
+        48210,
+        19223,
+        10364,
+        13362,
+        8461,
+        2267,
+        6344,
+        7268,
+        3546,
+        3371,
+        0,
+        0,
+        340
+    ]}
+ 
 Visualizations
 ==============
 
