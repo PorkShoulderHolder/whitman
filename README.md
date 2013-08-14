@@ -54,13 +54,14 @@ Data
 
 2. whitmanjson.json and it's bson counterpart are the big fishes here. They are arrays of jsonized NE_Record objects, (one entry per letter), consisting of all sorts of easy to use
 descriptors about the letter such as the sender, and recipient (as interpreted by my scripts), locations, geo-political entities, and more, even including the latlngs of everything that was recognized as a place.
-Below is an example entry that represents one letter (the full json is an array of the letters).
+Below is an example entry that represents one letter (the full json is an array of the letters). A key for the parts of speech tags
+can be found in Table 5.1 of http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html
 
 ##example from whitmanjson.json
 
     {
        "taggedHeading":[         /* this is the heading of the letter after being processed by nltk's
-                                    pos (parts of speech) tagger */
+                                    pos (parts of speech) tagger. A key for the tags can be found */
           [
              [
                 "Letter",
@@ -182,75 +183,11 @@ Below is an example entry that represents one letter (the full json is an array 
                 "Sir,1",
                 "NNP"
              ],
-             [
-                [
-                   "Mr.",
-                   "NNP"
-                ],
-                [
-                   "House2",
-                   "NNP"
-                ]
-             ],
-             [
-                "inform",
-                "NN"
-             ],
-             [
-                "'d",
-                "MD"
-             ],
 
              .
              .          // these arrays are quite long so I abridged them for the readme
              .
 
-             [
-                "you",
-                "PRP"
-             ],
-             [
-                "may",
-                "MD"
-             ],
-             [
-                "omit",
-                "VB"
-             ],
-             [
-                "them",
-                "PRP"
-             ],
-             [
-                ",",
-                ","
-             ],
-             [
-                "if",
-                "IN"
-             ],
-             [
-                "you",
-                "PRP"
-             ],
-             [
-                "decidedly",
-                "RB"
-             ],
-             [
-                "wish",
-                "JJ"
-             ],
-             [
-                "to",
-                "TO"
-             ],
-             [
-                ".",
-                "."
-             ]
-          ],
-          [
              [
                 "Yours",
                 "NNS"
