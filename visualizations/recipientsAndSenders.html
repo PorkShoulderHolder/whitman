@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<meta charset="utf-8">
+	<title>first d3 eg with json</title>
+
+	 <!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script> -->
+	 <script src="./d3/d3.v3.js"></script>
+	<style>
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+	var recipients = [];
+	var senders = [];
+	var recipOccurances = [];
+	var senderOccurances = [];
+
+	var myJsonRecipients = [];
+	var myJsonSenders = [];
+
+	d3.json("../data/whitmanjson.json", function(data){
+
+		data.forEach(function(d){
+			if(recipients.indexOf(d.recipient)==-1){
+				recipients.push(d.recipient);
+				recipOccurances[recipients.indexOf(d.recipient)] = 1;
+			}
+			else{
+				recipOccurances[recipients.indexOf(d.recipient)]++;
+			}
+
+			if(senders.indexOf(d.sender)==-1){
+				senders.push(d.sender);
+				senderOccurances[senders.indexOf(d.sender)] = 1;
+			}
+			else{
+				senderOccurances[senders.indexOf(d.sender)]++;
+			}
+		})
+	
+		for(var i=0; i<recipients.length; i++){
+			myJsonRecipients.push({recipient: recipients[i], occurances: recipOccurances[i]});
+		}
+
+		for(var i=0; i<senders.length; i++){
+			myJsonSenders.push({sender: senders[i], occurances: senderOccurances[i]});
+		}
+
+		var svgRecip = d3.select('body')
+					.append('svg')
+					.attr('width',1000)
+					.attr('height',100)
+					.attr('class', 'svgRecip');
+
+		svgRecip.selectAll('text')
+				.data(myJsonRecipients)
+				.enter()
+				.append('text')
+				.text(function(d, i){
+					if(i==0)
+						return "recipients";
+					return "";
+				})
+				.attr('x',100)
+				.attr('y',20);
+
+		var svgSend = d3.select('body')
+						.append('svg')
+						.attr('width', 1000)
+						.attr('height', 100);
+
+		svgSend.selectAll('text')
+				.data(myJsonSenders)
+				.enter()
+				.append('text')
+				.text(function(d, i){
+					if(i==0)
+						return "senders";
+					return "";
+				})
+				.attr('x',200)
+				.attr('y',20);
+
+		var circlesRecip = svgRecip.selectAll('circle')
+						.data(myJsonRecipients)
+						.enter()
+						.append('circle')
+						.attr('cx', function(d, i){
+							return 7 + i*7;
+						})
+						.attr('cy', 50)
+						.attr('r', function(d){
+							if(d.recipient=='Walt Whitman' || d.recipient=='' || d.recipient=='Louisa Van Velsor Whitman')
+								return 1;
+							return d.occurances;
+						});
+
+		var circlesSend = svgSend.selectAll('circle')
+						.data(myJsonSenders)
+						.enter()
+						.append('circle')
+						.attr('fill', 'red')
+						.attr('cx', function(d, i){
+							return 7 + i*7;
+						})
+						.attr('cy', 50)
+						.attr('r', function(d){
+							if(d.sender=='Walt Whitman' || d.sender=="Whitman" || d.sender=="")
+								return 1;
+							return d.occurances;
+						});
+
+	})
+
+	</script>
+	<h3>Blobs with radii proportional to number of letters received or sent from within the dataset. Recieved blobs exclude 'Louisa Van Velsor Whitman' and both recieved and sent blobs exclude 'Walt Whitman' and the empty string.</h3>
+
+</body>
+</html>
