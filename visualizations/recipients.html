@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<meta charset="utf-8">
+	<title>first d3 eg with json</title>
+
+	 <!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script> -->
+	 <script src="./d3/d3.v3.js"></script>
+	<style>
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+	var recipients = [];
+	var senders = [];
+	var recipOccurances = [];
+	var senderOccurances = [];
+
+	var myJsonRecipients = [];
+	var myJsonSenders = [];
+	var width = 1200;
+	var height = 600;
+	var padding = 150;
+
+	d3.json("../data/whitmanjson.json", function(data){
+
+		data.forEach(function(d){
+			if(recipients.indexOf(d.recipient)==-1){
+				if(d.recipient == 'Louisa Van Velsor Whitman' || d.recipient == 'Walt Whitman' || d.recipient == ''){
+
+				}
+				else{
+					recipients.push(d.recipient);
+					recipOccurances[recipients.indexOf(d.recipient)] = 1;
+				}
+			}
+			else{
+				recipOccurances[recipients.indexOf(d.recipient)]++;
+			}
+		})
+	
+		for(var i=0; i<recipients.length; i++){
+			myJsonRecipients.push({recipient: recipients[i], occurances: recipOccurances[i]});
+		}
+
+		var maxRecip = d3.max(recipOccurances,function(d){
+			return d;
+		});
+
+//optional data sorting functions
+		function sortAscending(){
+			myJsonRecipients.sort(function(a,b){
+				return a.occurances - b.occurances;
+			});
+		}
+
+		function sortDescending(){
+			myJsonRecipients.sort(function(a,b){
+				return b.occurances - a.occurances;
+			})
+		}
+
+		function sortAlphabeticalByFirst(){
+			myJsonRecipients.sort(function(a,b){
+				var nameA = a.recipient.toLowerCase();
+				var nameB = b.recipient.toLowerCase();
+				if(nameA < nameB)
+					return -1;
+				if(nameA > nameB)
+					return 1;
+				return 0;
+			});
+		}
+
+//create scaling with d3
+		var radScale = d3.scale.linear()
+							.domain([0,maxRecip])
+							.range([1,12]);
+
+		var yScale = d3.scale.linear()
+							.domain([0, maxRecip])
+							.range([height-padding, padding]);
+//setup the svg element
+		var svg = d3.select('body')
+					.append('svg')
+					.attr('width',width)
+					.attr('height',height)
+					.attr('class', 'svg');
+
+		svg.append('g')
+			.classed('chart', true)
+			.attr('transform', 'translate(40,100)');
+
+//add the labels
+		d3.select('svg g.chart')
+    	.append('text')
+    	.attr({'id': 'detailLabel', 'x': 50, 'y': padding})
+    	.style({'font-size': '16px','fill': '#333', 'font-family': 'sans-serif'});
+
+    	d3.select('svg g.chart')
+    	.append('text')
+    	.attr({'id': 'letterCount', 'x': 50, 'y': padding + 25})
+    	.style({'font-size': '16px','fill': '#333', 'font-family': 'sans-serif'});
+
+//add the points and their mouseover/out functions
+		var circlesRecip = svg.select('g')
+						.selectAll('circle')
+						.data(myJsonRecipients)
+						.enter()
+						.append('circle')
+						.attr('fill', '#cc0344')
+						.attr('cx', function(d, i){
+							// return radScale(maxRecip)/2 + radScale(maxRecip)*i;
+							//each dot had space 6 wide
+							return 4 + 8*i;
+						})
+						.attr('cy', function(d){
+							return yScale(d.occurances);
+						})
+						.attr('r', function(d){
+							// var radius = d.occurances > 1 ? radScale(d.occurances) : 0;
+							var radius = radScale(d.occurances);
+							return radius;
+						})
+						.style('cursor', 'pointer')
+						.on('mouseover', function(d){
+							d3.select(this)
+								.style('stroke', '#ccc')
+								.style('stroke-width', '3px');
+							d3.select('svg g.chart #detailLabel')
+								.text(d.recipient)
+								.transition()
+								.duration(100)
+								.style('opacity', 1);
+							d3.select('svg g.chart #letterCount')
+								.text('Letters Recieved: ' + d.occurances)
+								.transition()
+								.style('opacity', 1);
+						})
+						.on('mouseout', function(d, i) {
+							d3.select(this)
+								.style('stroke-width', '0px');
+							d3.select('svg g.chart #detailLabel')
+								.transition()
+								.style('opacity', 0);
+							d3.select('svg g.chart #letterCount')
+								.transition()
+								.style('opacity', 0);
+						});
+
+	})
+
+	</script>
+
+</body>
+</html>
