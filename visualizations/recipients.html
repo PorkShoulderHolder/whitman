@@ -7,10 +7,19 @@
 	 <!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script> -->
 	 <script src="./d3/d3.v3.js"></script>
 	<style>
+	ul{
+		list-style-type: none;
+	}
 	</style>
 </head>
 
 <body>
+
+			<div id="menu">
+			<h2> Sort by: </h2>
+				<ul id="sorting-menu"></ul>
+			</div>
+
 	<script type="text/javascript">
 	var recipients = [];
 	var senders = [];
@@ -20,8 +29,10 @@
 	var myJsonRecipients = [];
 	var myJsonSenders = [];
 	var width = 1200;
-	var height = 600;
-	var padding = 150;
+	var height = 500;
+	var padding = 50;
+	var sortingOptions = ['Alphabetical by Recipient', 'Number Received (Ascending)', 
+							'Number Received (Descending)'];
 
 	d3.json("../data/whitmanjson.json", function(data){
 
@@ -90,7 +101,7 @@
 
 		svg.append('g')
 			.classed('chart', true)
-			.attr('transform', 'translate(40,100)');
+			.attr('transform', 'translate(40,30)');
 
 //add the labels
 		d3.select('svg g.chart')
@@ -102,6 +113,51 @@
     	.append('text')
     	.attr({'id': 'letterCount', 'x': 50, 'y': padding + 25})
     	.style({'font-size': '16px','fill': '#333', 'font-family': 'sans-serif'});
+
+    	d3.select('#sorting-menu')
+    		.selectAll('li')
+    		.data(sortingOptions)
+    		.enter()
+    		.append('li')
+    		.style('cursor','pointer')
+    		.text(function(d){
+    			return d;
+    		})
+    		.on('click', function(d){
+    			//better way to do this I'm sure
+    			switch(d){
+    				case sortingOptions[0]:
+    				sortAlphabeticalByFirst();
+    				updateCircles();
+    				break;
+    				case sortingOptions[1]:
+    				sortAscending();
+    				updateCircles();
+    				break;
+    				default:
+    				sortDescending();
+    				updateCircles();
+    			}
+    		});
+
+    	function updateCircles(){
+    		circlesRecip.data(myJsonRecipients)
+    					.transition()
+    					.attr('cx', function(d, i){
+							// return radScale(maxRecip)/2 + radScale(maxRecip)*i;
+							//each dot had space 6 wide
+							return 4 + 8*i;
+						})
+						.attr('cy', function(d){
+							return yScale(d.occurances);
+						})
+						.attr('r', function(d){
+							// var radius = d.occurances > 1 ? radScale(d.occurances) : 0;
+							var radius = radScale(d.occurances);
+							return radius;
+						});
+
+    	}
 
 //add the points and their mouseover/out functions
 		var circlesRecip = svg.select('g')
@@ -148,7 +204,6 @@
 								.transition()
 								.style('opacity', 0);
 						});
-
 	})
 
 	</script>
