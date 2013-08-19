@@ -87,12 +87,13 @@
 						.data(myJsonRecipients)
 						.enter()
 						.append('circle')
+						.style('opacity', 0.5)
 						.attr('cx', function(d, i){
 							return 7 + i*7;
 						})
 						.attr('cy', 50)
 						.attr('r', function(d){
-							if(d.recipient=='Walt Whitman' || d.recipient=='' || d.recipient=='Louisa Van Velsor Whitman')
+							if(d.recipient=='Walt Whitman' || d.recipient=='')
 								return 1;
 							return d.occurances;
 						});
@@ -102,6 +103,7 @@
 						.enter()
 						.append('circle')
 						.attr('fill', 'red')
+						.style('opacity', 0.5)
 						.attr('cx', function(d, i){
 							return 7 + i*7;
 						})
