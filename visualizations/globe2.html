@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+circle,
+path {
+  fill: none;
+  stroke: #000;
+}
+
+circle {
+  stroke-width: 2px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v2.min.js?2.9.6"></script>
+<script>
+
+var width = 960,
+    height = 500,
+    radius = 240;
+var Data;
+var origin = [-71, 42],
+    velocity = [.010, -.002],
+    t0 = Date.now();
+
+var projection = d3.geo.azimuthal()
+    .mode("orthographic")
+    .scale(radius)
+    .translate([width / 2, height / 2]);
+
+var circle = d3.geo.greatCircle();
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("circle")
+    .attr("cx", width / 2)
+    .attr("cy", height / 2)
+    .attr("r", radius);
+
+d3.json("readme.json", function(geometry) {
+  var feature = svg.append("path")
+      .datum(geometry)
+      .attr("d", draw);
+  var group =  svg.append('g');
+  setupMarkers(group);
+  d3.timer(function() {
+    var t = Date.now() - t0,
+        o = [origin[0] + velocity[0] * t, origin[1] + velocity[1] * t];
+    projection.origin(o);
+    circle.origin(o);
+    feature.attr("d", draw);
+     moveMarkers(group);
+
+  });
+
+  function draw(d) {
+    return path(circle.clip(d));
+  }
+});
+function setupMarkers(group){
+    d3.json("../data/postageTrafficByYear.json", function(data,error){
+        Data = data;
+        console.log(data);
+        console.log(error);
+        data.locations.forEach(function(location){
+            location.forEach(function(latlng){
+                var coords = projection([latlng[1],latlng[0]])
+                console.log()
+                 group.append('circle')
+                    .attr('ox',coords[0])
+                    .attr('oy',coords[1])
+                    .attr('cx', coords[0])
+                    .attr('cy', coords[1])
+                    .attr('r', 2)
+                    .style('fill', 'red');
+            })
+        })
+    });
+}
+
+function moveMarkers(group){
+    circles = group.selectAll('circle');
+
+    circles.forEach(function(circle){
+        console.log(circle)
+        var coords = projection([circle.attr('ox'),circle.attr('oy')]);
+         circle.attr('cx', coords[0])
+            .attr('cy', coords[1])
+            .attr('r', 2)
+            .style('fill', 'red');
+    })
+}
+
+</script>
+June 27, 2013

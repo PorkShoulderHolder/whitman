@@ -42,6 +42,14 @@ body {
 var width = 1200,
     height = 700;
 
+var origin = [-71, 42],
+    velocity = [.010, -.002],
+    t0 = Date.now();
+
+var R = 90;
+
+var World = 0;
+
 var projection = d3.geo.orthographic()
     .scale(300)
     .translate([width / 2, height / 2])
@@ -78,15 +86,28 @@ svg.append("use")
 
 
 d3.json("globe.json", function(error, world) {
+  World = world
   svg.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
       .attr("class", "land")
-      .attr("d", path)
+      .attr("d",path)
       .attr("g",path);
   var group =  svg.append('g');
   setupMarkers(group);
+    d3.timer(function(){
+        R += 1;
+        d3.timer(function() {
+            var t = Date.now() - t0,
+            o = [origin[0] + velocity[0] * t, origin[1] + velocity[1] * t];
+            projection.origin(o);
+            //circle.origin(o);
+            //feature.attr("d", draw);
+         });
 
+
+    },0.05);
 });
+
 
 
 
