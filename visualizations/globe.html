@@ -94,18 +94,18 @@ d3.json("globe.json", function(error, world) {
       .attr("g",path);
   var group =  svg.append('g');
   setupMarkers(group);
-    d3.timer(function(){
-        R += 1;
-        d3.timer(function() {
-            var t = Date.now() - t0,
-            o = [origin[0] + velocity[0] * t, origin[1] + velocity[1] * t];
-            projection.origin(o);
-            //circle.origin(o);
-            //feature.attr("d", draw);
-         });
-
-
-    },0.05);
+//    d3.timer(function(){
+//        R += 1;
+//        d3.timer(function() {
+//            var t = Date.now() - t0,
+//            o = [origin[0] + velocity[0] * t, origin[1] + velocity[1] * t];
+//            projection.origin(o);
+//            //circle.origin(o);
+//            //feature.attr("d", draw);
+//         });
+//
+//
+//    },0.05);
 });
 
 
@@ -116,16 +116,21 @@ d3.select(self.frameElement).style("width", width + "px");
 
 function setupMarkers(group){
     d3.json("../data/postageTrafficByYear.json", function(error,data){
+        var i = 0;
         data.locations.forEach(function(location){
+            var year = i + 1860;
             location.forEach(function(latlng){
                 var coords = projection([latlng[1],latlng[0]])
                 console.log()
                  group.append('circle')
                     .attr('cx', coords[0])
                     .attr('cy', coords[1])
+                  //  .data({latlng:latlng, year:year})
                     .attr('r', 2)
-                    .style('fill', 'red');
+                    .style('fill', 'red')
+                    .on('mouseover',function(d){this.style('fill','blue')})
             })
+            i++;
         })
     });
 }

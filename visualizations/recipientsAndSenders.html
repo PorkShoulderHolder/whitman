@@ -21,8 +21,9 @@
 	var myJsonSenders = [];
 
 	d3.json("../data/whitmanjson.json", function(data){
-
+        console.log(data[2])
 		data.forEach(function(d){
+
 			if(recipients.indexOf(d.recipient)==-1){
 				recipients.push(d.recipient);
 				recipOccurances[recipients.indexOf(d.recipient)] = 1;

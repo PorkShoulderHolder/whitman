@@ -1,37 +1,54 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono">
+
 <style>
 
 circle,
 path {
-  fill: none;
+  fill: None;
   stroke: #000;
 }
 
 circle {
-  stroke-width: 2px;
+  fill: #fff;
+  opacity:1;;
 }
+    #year{
+        position: absolute;
+        text-align: right;;
+        width:90%;
+        font-size: 100px;;
+        z-index: -90;
+        font-family: Ubuntu Mono;
+    }
 
 </style>
 <body>
+<div id="year">1859</div>
 <script src="http://d3js.org/d3.v2.min.js?2.9.6"></script>
+
 <script>
 
-var width = 960,
+var width = 700,
     height = 500,
-    radius = 240;
+    radius = 220;
 var Data;
-var origin = [-71, 42],
-    velocity = [.010, -.002],
-    t0 = Date.now();
+var circles;
+var YEAR = 1860;
+var dataset = [ 5, 10, 15, 20, 25 ];
 
+var origin = [300, 24],
+    velocity = [.007, -.000],
+    t0 = Date.now();
 var projection = d3.geo.azimuthal()
     .mode("orthographic")
     .scale(radius)
     .translate([width / 2, height / 2]);
 
 var circle = d3.geo.greatCircle();
-
+circle.origin(origin)
+projection.origin(origin);
 var path = d3.geo.path()
     .projection(projection);
 
@@ -44,31 +61,50 @@ svg.append("circle")
     .attr("cy", height / 2)
     .attr("r", radius);
 
+svg.on('mousemove',function(){
+     var x = d3.mouse(this)[0] / width;
+     var y = d3.mouse(this)[1] / height;
+
+     if(Data){
+         YEAR = 1860 +  (1.0 * x * 17);
+     }
+    if(!circles){
+        circles = d3.selectAll('circles')
+    }
+    circles.style('fill', function(d,i){return Math.abs(d.normalizedDate - x) < 0.05 ? 'red' :'black'})
+            .style('stroke', function(d,i){return Math.abs(d.normalizedDate - x) < 0.05 ? 'red' :'black'})
+            .style('opacity', function(d,i){return Math.abs(d.normalizedDate - x) < 0.05 ? 0.08 : 0.1})
+            .attr('r',function(d,i){return Math.abs(d.normalizedDate - x) < 0.05 ? 10 : 1})
+    d3.select("#year").html(Math.floor(YEAR))
+})
+
 d3.json("readme.json", function(geometry) {
   var feature = svg.append("path")
       .datum(geometry)
       .attr("d", draw);
   var group =  svg.append('g');
-  setupMarkers(group);
+  correctSetup(group)//setupMarkers(group);
   d3.timer(function() {
     var t = Date.now() - t0,
         o = [origin[0] + velocity[0] * t, origin[1] + velocity[1] * t];
-    projection.origin(o);
-    circle.origin(o);
-    feature.attr("d", draw);
-     moveMarkers(group);
+   // projection.origin(o);
+    //circle.origin(o);
+//    feature.attr("d", draw);
+
 
   });
 
-  function draw(d) {
+
+function draw(d) {
     return path(circle.clip(d));
   }
 });
 function setupMarkers(group){
     d3.json("../data/postageTrafficByYear.json", function(data,error){
+
+
         Data = data;
-        console.log(data);
-        console.log(error);
+
         data.locations.forEach(function(location){
             location.forEach(function(latlng){
                 var coords = projection([latlng[1],latlng[0]])
@@ -85,18 +121,79 @@ function setupMarkers(group){
     });
 }
 
-function moveMarkers(group){
-    circles = group.selectAll('circle');
+function correctSetup(s){
+    d3.json("../data/postageTrafficByYear.json", function(data,error){
+         var locs = []
+         var yearlyTotals = []
+         var year = 1860;
+         Data = data;
+         data.incomingLetterTraffic.forEach(function(volume){
+            yearlyTotals.push(volume);
+         })
+         var w = 0;
+         data.outgoingLetterTraffic.forEach(function(volume){
+            yearlyTotals[w] += volume;
+         })
+         console.log(yearlyTotals.length, data.outgoingLetterTraffic.length);
+         console.log(yearlyTotals);
+         var q = 0;
+         w = 0;
+         year = 1860;
+         var dates = []
+        var i = 0;
+         data.locations.forEach(function(location){
 
-    circles.forEach(function(circle){
-        console.log(circle)
-        var coords = projection([circle.attr('ox'),circle.attr('oy')]);
-         circle.attr('cx', coords[0])
-            .attr('cy', coords[1])
-            .attr('r', 2)
-            .style('fill', 'red');
-    })
+            if(q > yearlyTotals[w]/2){
+                w++;
+                console.log("ASDKFAKDSFKASDFKAS  ",q)
+                year ++;
+                q = 0;
+            }
+            location.forEach(function(latlng){
+                k = Math.floor(data.normalizedDates[i] * 17) + 1860;
+                locs.push({lat:latlng[0],lng:latlng[1], year:k, normalizedDate:data.normalizedDates[i]})
+
+                i++
+            })
+
+            q++
+        })
+        console.log(locs);
+        circles = s.selectAll("circle")
+        .data(locs)
+        .enter()
+        .append("circle");
+        var coords
+        circles.attr("cx", function(d, i) {
+                coords = projection([d.lng, d.lat])
+                return coords[0];
+            })
+           .attr("cy", function(d, i) {
+                var coords = projection([d.lng, d.lat])
+                return coords[1]
+                })
+           .attr("oy", function(d, i) {
+                var coords = projection([d.lng, d.lat])
+                return coords[1]
+                })
+            .attr("ox", function(d, i) {
+                var coords = projection([d.lng, d.lat])
+                return coords[0]
+                })
+           .attr("r", 15)
+           .style('opacity',0.06)
+
+          // .style('fill', 'white');
+
+
+    });
+}
+
+function moveMarkers(group){
+
+
+
+
 }
 
 </script>
-June 27, 2013
